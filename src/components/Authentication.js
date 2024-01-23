@@ -2,16 +2,16 @@
 import React from 'react';
 import { Container, Paper, Typography, TextField, Button } from '@mui/material';
 import AuthHeader from './AuthHeader';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate instead of useHistory
 
 const Authentication = () => {
-  const history = useHistory();
+  const navigate = useNavigate(); // Use useNavigate instead of useHistory
 
   const handleLogin = () => {
     // Your login logic goes here
 
     // If login is successful, navigate to the meal selection page
-    history.push('/meal-selection');
+    navigate('/meal-selection'); // Use navigate instead of history.push
   };
 
   const pageStyle = {

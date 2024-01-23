@@ -27,7 +27,7 @@ const Header = () => {
   };
 
   return (
-    <AppBar sx={headerStyle}>
+    <AppBar position="static" sx={headerStyle}>
       <Toolbar>
         <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
           <img src="/iitj_logo.png" alt="Institute Logo" style={logoStyle} />

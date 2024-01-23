@@ -1,7 +1,6 @@
 // Authentication.js
 import React from 'react';
 import { Container, Paper, Typography, TextField, Button } from '@mui/material';
-import AuthHeader from './AuthHeader';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate instead of useHistory
 
 const Authentication = () => {
@@ -37,7 +36,6 @@ const Authentication = () => {
 
   return (
     <div>
-      <AuthHeader />
       <Container maxWidth="md" sx={pageStyle}>
         <Paper elevation={3} sx={paperStyle}>
           <Typography variant="h5" component="div" sx={{ fontWeight: 'bold', marginBottom: '20px' }}>

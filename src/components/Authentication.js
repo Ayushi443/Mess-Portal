@@ -15,7 +15,7 @@ const Authentication = () => {
   const handleSignUp = () => {
     // Your sign up logic goes here
     // After successful sign up, you can navigate to login or meal selection page
-    navigate('/login'); 
+    navigate('/meal-selection'); 
   };
 
   const handleForgotPassword = () => {

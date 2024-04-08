@@ -12,7 +12,7 @@ const Header = () => {
     // Perform logout logic if needed
 
     // Redirect to the authentication page
-    navigate('/login');
+    navigate('/');
   };
 
   const headerStyle = {

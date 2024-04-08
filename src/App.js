@@ -1,11 +1,12 @@
 // App.js
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import AuthHeader from './components/AuthHeader';
 import MealSelection from './components/MealSelection';
 import Authentication from './components/Authentication';
 import Footer from './components/Footer';
+import BookingSummary from './components/BookingSummary';
 import './App.css';
 
 function App() {
@@ -13,26 +14,35 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
+          {/* Default route for Authentication */}
           <Route
-            path="/*"
+            index
             element={
               <>
-                <Header />
-                <Routes>
-                  <Route index element={<MealSelection />} />
-                </Routes>
+                <AuthHeader />
+                <Authentication />
                 <Footer />
               </>
             }
           />
+          {/* Route for Meal Selection */}
           <Route
-            path="/login/*"
+            path="/meal-selection"
             element={
               <>
-                <AuthHeader />
-                <Routes>
-                  <Route index element={<Authentication />} />
-                </Routes>
+                <Header />
+                <MealSelection />
+                <Footer />
+              </>
+            }
+          />
+          {/* Default route for Booking summary */}
+          <Route
+            path="/booking-summary"
+            element={
+              <>
+                <Header />
+                <BookingSummary/>
                 <Footer />
               </>
             }

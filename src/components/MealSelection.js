@@ -59,7 +59,7 @@ const MealSelection = () => {
       backgroundSize: 'cover', 
       backgroundRepeat: 'no-repeat', 
       backgroundColor: 'rgba(255, 255, 255, 0.4)', 
-      minHeight: '80vh',
+      minHeight: '100vh',
       padding: '20px'
     }}>
       <h2 style={{ textAlign: 'center', color: 'white', padding: '10px' }}>MEAL SELECTION</h2>

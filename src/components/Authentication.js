@@ -1,21 +1,50 @@
 import React, { useState } from 'react';
 import { Container, Paper, Typography, TextField, Button, Link } from '@mui/material';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; 
 
 const Authentication = () => {
   const navigate = useNavigate(); 
   const [isSignUp, setIsSignUp] = useState(false);
+  const [formData, setFormData] = useState({
+    username: '',
+    password: '',
+    email: '',
+    first_name: '',
+    last_name: '',
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
   const handleLogin = () => {
-    // Your login logic goes here
-    // If login is successful, navigate to the meal selection page
-    navigate('/meal-selection'); 
+    // Send login request to Django backend
+    axios.post('/api/login/', formData)
+      .then(response => {
+        console.log(response.data);
+        // Redirect to meal selection page on successful login
+        navigate('/meal-selection');
+      })
+      .catch(error => {
+        console.error('Login failed:', error);
+        // Handle login error
+      });
   };
 
   const handleSignUp = () => {
-    // Your sign up logic goes here
-    // After successful sign up, you can navigate to login or meal selection page
-    navigate('/meal-selection'); 
+    // Send signup request to Django backend
+    axios.post('/api/signup/', formData)
+      .then(response => {
+        console.log(response.data);
+        // Redirect to meal selection page or login page after successful signup
+        navigate('/meal-selection');
+      })
+      .catch(error => {
+        console.error('Sign up failed:', error);
+        // Handle signup error
+      });
   };
 
   const handleForgotPassword = () => {
@@ -76,22 +105,40 @@ const Authentication = () => {
             <>
               {/* Sign Up Form */}
               <TextField
-                label="Full Name"
+                label="First Name"
                 variant="outlined"
                 fullWidth
                 sx={textFieldStyle}
+                name="first_name"
+                value={formData.first_name}
+                onChange={handleChange}
+              />
+              <TextField
+                label="Last Name"
+                variant="outlined"
+                fullWidth
+                sx={textFieldStyle}
+                name="last_name"
+                value={formData.last_name}
+                onChange={handleChange}
               />
               <TextField
                 label="Email"
                 variant="outlined"
                 fullWidth
                 sx={textFieldStyle}
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
               />
               <TextField
                 label="Username"
                 variant="outlined"
                 fullWidth
                 sx={textFieldStyle}
+                name="username"
+                value={formData.username}
+                onChange={handleChange}
               />
               <TextField
                 label="Password"
@@ -99,6 +146,9 @@ const Authentication = () => {
                 variant="outlined"
                 fullWidth
                 sx={textFieldStyle}
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
               />
               <Button variant="contained" color="primary" fullWidth sx={buttonStyle} onClick={handleSignUp}>
                 Sign Up
@@ -112,6 +162,9 @@ const Authentication = () => {
                 variant="outlined"
                 fullWidth
                 sx={textFieldStyle}
+                name="username"
+                value={formData.username}
+                onChange={handleChange}
               />
               <TextField
                 label="Password"
@@ -119,6 +172,9 @@ const Authentication = () => {
                 variant="outlined"
                 fullWidth
                 sx={textFieldStyle}
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
               />
               <Link href="#" onClick={handleForgotPassword} sx={{ display: 'block', textAlign: 'right', marginBottom: '10px' }}>
                 Forgot Password?

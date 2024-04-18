@@ -16,7 +16,7 @@ const Header = () => {
   };
 
   const headerStyle = {
-    backgroundColor: '#07AB17',
+    backgroundColor: '#6495ED',
     height: '100px', // Set the height to 100 pixels
     padding: '5px 0', // 5px padding above and below
   };
@@ -33,13 +33,15 @@ const Header = () => {
           <img src="/iitj_logo.png" alt="Institute Logo" style={logoStyle} />
         </IconButton>
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', marginLeft: '10px' }}>
-          <Typography variant="h4" component="div" sx={{ fontWeight: 'bold', marginBottom: '5px' }}>
+          <Typography variant="h4" component="div" sx={{ fontWeight: 'bold', marginBottom: '2px' }}>
             INDIAN INSTITUTE OF TECHNOLOGY, JODHPUR
           </Typography>
-          <Typography variant="h5" sx={{ fontWeight: 'bold', color: 'white' }}>
-            MESS MEAL BOOKING PORTAL
-          </Typography>
-        </div>
+          <div style={{ display: 'flex', alignItems: 'baseline' }}>
+            <Typography variant="h5" sx={{ fontWeight: 'bold', color: 'white', marginRight: '8px' }}>
+              MESS MEAL BOOKING PORTAL
+            </Typography>
+          </div>
+          </div>
         <div style={{ marginLeft: 'auto' }}>
           <IconButton color="inherit">
             <AccountCircleIcon />

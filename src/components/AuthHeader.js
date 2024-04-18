@@ -4,7 +4,7 @@ import { AppBar, Toolbar, Typography } from '@mui/material';
 
 const AuthHeader = () => {
   const headerStyle = {
-    backgroundColor: '#07AB17',
+    backgroundColor: '#6495ED',
     height: '100px', // Set the height to 100 pixels
     padding: '5px 0', // 5px padding above and below
   };

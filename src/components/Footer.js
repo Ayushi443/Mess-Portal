@@ -4,7 +4,7 @@ import { AppBar, Toolbar, Typography, Link } from '@mui/material';
 
 const Footer = () => {
   const footerStyle = {
-    backgroundColor: '#07AB17',
+    backgroundColor: '#6495ED',
     height: '25px',
     display: 'flex',
     justifyContent: 'center',

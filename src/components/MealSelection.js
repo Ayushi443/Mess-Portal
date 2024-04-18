@@ -55,7 +55,7 @@ const MealSelection = () => {
 
   return (
     <div style={{ 
-      backgroundImage: "url('/mess photo.jpg')", 
+      backgroundImage: "url('/MESS1.jpg')", 
       backgroundSize: 'cover', 
       backgroundRepeat: 'no-repeat', 
       backgroundColor: 'rgba(255, 255, 255, 0.4)', 

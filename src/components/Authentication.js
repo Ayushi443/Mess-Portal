@@ -21,7 +21,7 @@ const Authentication = () => {
 
   const handleLogin = () => {
     // Send login request to Django backend
-    axios.post('/api/login/', formData)
+    axios.post('/api/auth/login/', formData)
       .then(response => {
         console.log(response.data);
         // Redirect to meal selection page on successful login
@@ -35,7 +35,7 @@ const Authentication = () => {
 
   const handleSignUp = () => {
     // Send signup request to Django backend
-    axios.post('/api/signup/', formData)
+    axios.post('/api/auth/signup/', formData)
       .then(response => {
         console.log(response.data);
         // Redirect to meal selection page or login page after successful signup

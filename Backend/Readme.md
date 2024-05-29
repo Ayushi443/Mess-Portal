@@ -50,4 +50,3 @@ To run the development server, execute the following command:
 ```bash
 python manage.py runserver
 ```
-```

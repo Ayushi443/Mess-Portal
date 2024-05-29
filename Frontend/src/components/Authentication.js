@@ -3,6 +3,9 @@ import { Container, Paper, Typography, TextField, Button, Link } from '@mui/mate
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; 
 
+
+
+ 
 const Authentication = () => {
   const navigate = useNavigate(); 
   const [isSignUp, setIsSignUp] = useState(false);
@@ -20,7 +23,10 @@ const Authentication = () => {
   };
 
   const handleLogin = () => {
-    axios.post('/authentication', formData)
+    const data = new FormData();
+    data.append('username', formData.username);
+    data.append('password', formData.password);
+    axios.post(`http://127.0.0.1:8000/authentication/login/`, data)
       .then(response => {
         console.log(response.data);
         // Redirect to meal selection page on successful login
@@ -31,19 +37,31 @@ const Authentication = () => {
         // Handle login error
       });
   };
-
+  
   const handleSignUp = () => {
-    axios.post('/authentication', formData)
+    const data = new FormData();
+    data.append('username', formData.username);
+    data.append('password', formData.password);
+    data.append('email', formData.email);
+    data.append('first_name', formData.first_name);
+    data.append('last_name', formData.last_name);
+  
+    axios.post(`http://127.0.0.1:8000/authentication/signup/`, data)
       .then(response => {
         console.log(response.data);
-        // Redirect to meal selection page or login page after successful signup
         navigate('/meal-selection');
       })
       .catch(error => {
-        console.error('Sign up failed:', error);
-        // Handle signup error
+        if (error.response) {
+          console.error('Sign up failed:', error.response.data);
+        } else if (error.request) {
+          console.error('No response received:', error.request);
+        } else {
+          console.error('Error', error.message);
+        }
       });
   };
+  
 
   const handleForgotPassword = () => {
     // Your forgot password logic goes here

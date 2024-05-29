@@ -1,12 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
+import { useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import axios from 'axios';  // Import axios
 
 const MealSelection = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
-  const navigate = useNavigate(); // Use useNavigate hook to get the navigation function
+  const [meals, setMeals] = useState([]);  // State to store meals
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    axios.get('http://127.0.0.1:8000/api/meals/')
+      .then(response => {
+        setMeals(response.data);
+      })
+      .catch(error => {
+        console.error("There was an error fetching the meals!", error);
+      });
+  }, []);
 
   const handleViewMenu = (messNumber) => {
     let imageUrl;
@@ -27,7 +39,6 @@ const MealSelection = () => {
   };
 
   const handleBookNow = () => {
-    // Navigate to BookingSummary component
     navigate('/booking-summary');
   };
 
@@ -44,11 +55,11 @@ const MealSelection = () => {
       window.removeEventListener('click', handleClickOutside);
     };
   }, []);
+
   const today = new Date();
   const dayAfterTomorrow = new Date(today);
   dayAfterTomorrow.setDate(today.getDate() + 2);
 
-  // Function to check if date is after tomorrow
   const isDateEnabled = (date) => {
     return date >= dayAfterTomorrow;
   };
@@ -75,29 +86,15 @@ const MealSelection = () => {
       </div>
 
       <div style={{ display: 'flex', justifyContent: 'center', gap: '50px' }}>
-        <div style={{ border: '1px solid #ccc', padding: '50px', borderRadius: '10px', backgroundColor: '#f9f9f9', textAlign: 'center' }}>
-          <h3>Mess 1</h3>
-          <button onClick={() => handleViewMenu(1)} style={{ backgroundColor: 'red', color: 'white' }}>View Menu</button>
-          <br />
-          <br />
-          <button onClick={handleBookNow} style={{ backgroundColor: 'red', color: 'white' }}>Book Now</button> {/* Update onClick event */}
-        </div>
-
-        <div style={{ border: '1px solid #ccc', padding: '50px', borderRadius: '10px', backgroundColor: '#f9f9f9', textAlign: 'center' }}>
-          <h3>Mess 2</h3>
-          <button onClick={() => handleViewMenu(2)} style={{ backgroundColor: 'red', color: 'white' }}>View Menu</button>
-          <br />
-          <br />
-          <button onClick={handleBookNow} style={{ backgroundColor: 'red', color: 'white' }}>Book Now</button> {/* Update onClick event */}
-        </div>
-
-        <div style={{ border: '1px solid #ccc', padding: '50px', borderRadius: '10px', backgroundColor: '#f9f9f9', textAlign: 'center' }}>
-          <h3>Mess 3</h3>
-          <button onClick={() => handleViewMenu(3)} style={{ backgroundColor: 'red', color: 'white' }}>View Menu</button>
-          <br />
-          <br />
-          <button onClick={handleBookNow} style={{ backgroundColor: 'red', color: 'white' }}>Book Now</button> {/* Update onClick event */}
-        </div>
+        {meals.map(meal => (
+          <div key={meal.id} style={{ border: '1px solid #ccc', padding: '50px', borderRadius: '10px', backgroundColor: '#f9f9f9', textAlign: 'center' }}>
+            <h3>{meal.name}</h3>
+            <button onClick={() => handleViewMenu(meal.id)} style={{ backgroundColor: 'red', color: 'white' }}>View Menu</button>
+            <br />
+            <br />
+            <button onClick={handleBookNow} style={{ backgroundColor: 'red', color: 'white' }}>Book Now</button>
+          </div>
+        ))}
       </div>
 
       {selectedImage && (
@@ -116,7 +113,6 @@ const MealSelection = () => {
           <img src={selectedImage} alt="Menu" style={{ maxWidth: '80%', maxHeight: '80%' }} />
         </div>
       )}
-      
     </div>
   );
 };

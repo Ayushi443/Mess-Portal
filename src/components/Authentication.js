@@ -20,8 +20,7 @@ const Authentication = () => {
   };
 
   const handleLogin = () => {
-    // Send login request to Django backend
-    axios.post('/api/auth/login/', formData)
+    axios.post('/authentication', formData)
       .then(response => {
         console.log(response.data);
         // Redirect to meal selection page on successful login
@@ -34,8 +33,7 @@ const Authentication = () => {
   };
 
   const handleSignUp = () => {
-    // Send signup request to Django backend
-    axios.post('/api/auth/signup/', formData)
+    axios.post('/authentication', formData)
       .then(response => {
         console.log(response.data);
         // Redirect to meal selection page or login page after successful signup
@@ -52,13 +50,12 @@ const Authentication = () => {
   };
 
   const pageStyle = {
-    //marginTop: '50px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    position: 'relative', // Make the position relative to contain the background image
-    minHeight: 'calc(100vh - 100px)', // Set the minimum height to cover the viewport
-    backgroundImage: 'url(/food2.jpg)', // Replace with your image URL
+    position: 'relative',
+    minHeight: 'calc(100vh - 100px)',
+    backgroundImage: 'url(/food2.jpg)',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   };
@@ -69,7 +66,7 @@ const Authentication = () => {
     left: 0,
     width: '100%',
     height: '100%',
-    backgroundColor: 'rgba(255, 255, 255, 0.5)', // Adjust opacity here (0.5 = 50% opacity)
+    backgroundColor: 'rgba(255, 255, 255, 0.5)',
   };
 
   const paperStyle = {
@@ -79,8 +76,7 @@ const Authentication = () => {
     padding: '20px',
     maxWidth: '400px',
     width: '100%',
-    position: 'relative', // Ensure the paper is positioned relative to the page
-    //zIndex: 1, // Ensure the paper appears above the overlay
+    position: 'relative',
     alignItems: 'center',
   };
 
@@ -94,7 +90,6 @@ const Authentication = () => {
 
   return (
     <div style={pageStyle}>
-      {/* Overlay with opacity */}
       <div style={overlayStyle}></div>
       <Container maxWidth="md">
         <Paper elevation={3} sx={paperStyle}>
@@ -103,7 +98,6 @@ const Authentication = () => {
           </Typography>
           {isSignUp ? (
             <>
-              {/* Sign Up Form */}
               <TextField
                 label="First Name"
                 variant="outlined"
@@ -156,7 +150,6 @@ const Authentication = () => {
             </>
           ) : (
             <>
-              {/* Sign In Form */}
               <TextField
                 label="Username"
                 variant="outlined"

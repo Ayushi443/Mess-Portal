@@ -30,14 +30,19 @@ This guide provides instructions for setting up the backend environment locally 
         ```bash
         myenv\Scripts\activate
         ```
+5. Inavigate to mealapp:
 
-5. Install dependencies:
+    ```bash
+    cd mealapp
+    ```
+
+6. Install dependencies:
 
     ```bash
     pip install -r requirements.txt
     ```
 
-6. Apply database migrations:
+7. Apply database migrations:
 
     ```bash
     python manage.py migrate

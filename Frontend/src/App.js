@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import AuthHeader from './components/AuthHeader';
 import MealSelection from './components/MealSelection';
+import MealOptions from './components/MealOptions'; // Import the MealOptions component
 import Authentication from './components/Authentication';
 import Footer from './components/Footer';
 import BookingSummary from './components/BookingSummary';
@@ -36,13 +37,24 @@ function App() {
               </>
             }
           />
+          {/* Route for Meal Options */}
+          <Route
+            path="/meal-options/:selectedDate"
+            element={
+              <>
+                <Header />
+                <MealOptions />
+                <Footer />
+              </>
+            }
+          />
           {/* Default route for Booking summary */}
           <Route
             path="/booking-summary"
             element={
               <>
                 <Header />
-                <BookingSummary/>
+                <BookingSummary />
                 <Footer />
               </>
             }

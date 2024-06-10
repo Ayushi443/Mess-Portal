@@ -1,0 +1,18 @@
+.react-datepicker {
+    font-size: 1em; /* Increase the font size */
+  }
+  
+  .react-datepicker__header {
+    padding-top: 1em; /* Increase the padding for the header */
+  }
+  
+  .react-datepicker__day,
+  .react-datepicker__day-name {
+    width: 3em; /* Increase the width of the days */
+    line-height: 3em; /* Increase the line height of the days */
+  }
+  
+  .react-datepicker__month {
+    margin: 1.5em; /* Increase the margin of the month view */
+  }
+  

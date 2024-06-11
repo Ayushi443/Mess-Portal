@@ -1,4 +1,3 @@
-// MealOptions.js
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -19,13 +18,33 @@ const MealOptions = () => {
       });
   }, []);
 
-  const handleViewMenu = (menuNumber) => {
-    const menuImage = `/menu${menuNumber}.jpg`;
+  const handleViewMenu = (messNumber) => {
+    const menuImage = `/menu${messNumber}.jpg`;
     setSelectedImage(menuImage);
   };
 
   const handleCloseModal = () => {
     setSelectedImage(null);
+  };
+
+  const handleBookNow = () => {
+    navigate('/BookingSummary'); // Navigate to BookingSummary.js
+  };
+
+  const buttonStyle = {
+    marginBottom: '10px',
+    width: '50%',
+    padding: '10px',
+    backgroundColor: '#6495ED',
+    color: 'white',
+    border: 'none',
+    borderRadius: '5px',
+    cursor: 'pointer',
+    transition: 'background-color 0.3s',
+  };
+
+  const buttonHoverStyle = {
+    backgroundColor: 'darkblue'
   };
 
   return (
@@ -37,12 +56,14 @@ const MealOptions = () => {
       padding: '20px',
       backgroundColor: 'rgba(255, 255, 255, 0.4)',
       display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center'
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center'
     }}>
+      <h2 style={{ marginTop: '20px', marginBottom:'20px' }}>Select meal for {selectedDate}</h2>
       <div style={{
         display: 'flex',
-        justifyContent: 'space-around',
+        justifyContent: 'center',
         flexWrap: 'wrap',
         width: '100%'
       }}>
@@ -52,12 +73,27 @@ const MealOptions = () => {
           borderRadius: '10px',
           boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)',
           width: '30%',
-          textAlign: 'center'
+          textAlign: 'center',
+          margin: '10px'
         }}>
           <h2>Mess 1</h2>
-          <div style={{ display: 'flex', flexDirection: 'column', marginTop: '20px' }}>
-            <button onClick={() => handleViewMenu(1)} style={{ marginBottom: '10px' }}>View Menu</button>
-            <button>Book Now</button>
+          <div style={{ display: 'flex', flexDirection: 'column', marginTop: '200px', alignItems: 'center' }}>
+            <button
+              onClick={() => handleViewMenu(1)}
+              style={buttonStyle}
+              onMouseEnter={(e) => e.target.style.backgroundColor = buttonHoverStyle.backgroundColor}
+              onMouseLeave={(e) => e.target.style.backgroundColor = buttonStyle.backgroundColor}
+            >
+              View Menu
+            </button>
+            <button
+              onClick={handleBookNow} // Call handleBookNow on click
+              style={buttonStyle}
+              onMouseEnter={(e) => e.target.style.backgroundColor = buttonHoverStyle.backgroundColor}
+              onMouseLeave={(e) => e.target.style.backgroundColor = buttonStyle.backgroundColor}
+            >
+              Book Now
+            </button>
           </div>
         </div>
         <div style={{
@@ -66,12 +102,27 @@ const MealOptions = () => {
           borderRadius: '10px',
           boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)',
           width: '30%',
-          textAlign: 'center'
+          textAlign: 'center',
+          margin: '10px'
         }}>
           <h2>Mess 2</h2>
-          <div style={{ display: 'flex', flexDirection: 'column', marginTop: '20px' }}>
-            <button onClick={() => handleViewMenu(2)} style={{ marginBottom: '10px' }}>View Menu</button>
-            <button>Book Now</button>
+          <div style={{ display: 'flex', flexDirection: 'column', marginTop: '200px', alignItems: 'center' }}>
+            <button
+              onClick={() => handleViewMenu(2)}
+              style={buttonStyle}
+              onMouseEnter={(e) => e.target.style.backgroundColor = buttonHoverStyle.backgroundColor}
+              onMouseLeave={(e) => e.target.style.backgroundColor = buttonStyle.backgroundColor}
+            >
+              View Menu
+            </button>
+            <button
+              onClick={handleBookNow} // Call handleBookNow on click
+              style={buttonStyle}
+              onMouseEnter={(e) => e.target.style.backgroundColor = buttonHoverStyle.backgroundColor}
+              onMouseLeave={(e) => e.target.style.backgroundColor = buttonStyle.backgroundColor}
+            >
+              Book Now
+            </button>
           </div>
         </div>
         <div style={{
@@ -80,12 +131,27 @@ const MealOptions = () => {
           borderRadius: '10px',
           boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)',
           width: '30%',
-          textAlign: 'center'
+          textAlign: 'center',
+          margin: '10px'
         }}>
           <h2>Mess 3</h2>
-          <div style={{ display: 'flex', flexDirection: 'column', marginTop: '20px' }}>
-            <button onClick={() => handleViewMenu(3)} style={{ marginBottom: '10px' }}>View Menu</button>
-            <button>Book Now</button>
+          <div style={{ display: 'flex', flexDirection: 'column', marginTop: '200px', alignItems: 'center' }}>
+            <button
+              onClick={() => handleViewMenu(3)}
+              style={buttonStyle}
+              onMouseEnter={(e) => e.target.style.backgroundColor = buttonHoverStyle.backgroundColor}
+              onMouseLeave={(e) => e.target.style.backgroundColor = buttonStyle.backgroundColor}
+            >
+              View Menu
+            </button>
+            <button
+              onClick={handleBookNow} // Call handleBookNow on click
+              style={buttonStyle}
+              onMouseEnter={(e) => e.target.style.backgroundColor = buttonHoverStyle.backgroundColor}
+              onMouseLeave={(e) => e.target.style.backgroundColor = buttonStyle.backgroundColor}
+            >
+              Book Now
+            </button>
           </div>
         </div>
       </div>
@@ -117,7 +183,12 @@ const MealOptions = () => {
             onClick={(e) => e.stopPropagation()}
           >
             <img src={selectedImage} alt="Menu" style={{ maxWidth: '70%', maxHeight: '70%' }} />
-            <button onClick={handleCloseModal} style={{ marginTop: '10px' }}>
+            <button
+              onClick={handleCloseModal}
+              style={buttonStyle}
+              onMouseEnter={(e) => e.target.style.backgroundColor = buttonHoverStyle.backgroundColor}
+              onMouseLeave={(e) => e.target.style.backgroundColor = buttonStyle.backgroundColor}
+            >
               Close
             </button>
           </div>
@@ -127,4 +198,4 @@ const MealOptions = () => {
   );
 };
 
-export default MealOptions;
+export default MealOptions

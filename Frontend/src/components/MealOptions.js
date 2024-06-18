@@ -77,7 +77,7 @@ const MealOptions = () => {
           margin: '10px'
         }}>
           <h2>Mess 1</h2>
-          <div style={{ display: 'flex', flexDirection: 'column', marginTop: '200px', alignItems: 'center' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', marginTop: '80px', alignItems: 'center' }}>
             <button
               onClick={() => handleViewMenu(1)}
               style={buttonStyle}
@@ -106,7 +106,7 @@ const MealOptions = () => {
           margin: '10px'
         }}>
           <h2>Mess 2</h2>
-          <div style={{ display: 'flex', flexDirection: 'column', marginTop: '200px', alignItems: 'center' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', marginTop: '80px', alignItems: 'center' }}>
             <button
               onClick={() => handleViewMenu(2)}
               style={buttonStyle}
@@ -135,7 +135,7 @@ const MealOptions = () => {
           margin: '10px'
         }}>
           <h2>Mess 3</h2>
-          <div style={{ display: 'flex', flexDirection: 'column', marginTop: '200px', alignItems: 'center' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', marginTop: '80px', alignItems: 'center' }}>
             <button
               onClick={() => handleViewMenu(3)}
               style={buttonStyle}

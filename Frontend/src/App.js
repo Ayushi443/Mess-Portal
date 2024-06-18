@@ -1,4 +1,3 @@
-// App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
@@ -8,6 +7,8 @@ import MealOptions from './components/MealOptions'; // Import the MealOptions co
 import Authentication from './components/Authentication';
 import Footer from './components/Footer';
 import BookingSummary from './components/BookingSummary';
+import UserProfile from './components/UserProfile'; // Import the UserProfile component
+
 import './App.css';
 
 function App() {
@@ -48,13 +49,24 @@ function App() {
               </>
             }
           />
-          {/* Default route for Booking summary */}
+          {/* Route for Booking Summary */}
           <Route
             path="/booking-summary"
             element={
               <>
                 <Header />
                 <BookingSummary />
+                <Footer />
+              </>
+            }
+          />
+          {/* Route for User Profile */}
+          <Route
+            path="/profile"
+            element={
+              <>
+                <Header />
+                <UserProfile />
                 <Footer />
               </>
             }

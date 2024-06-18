@@ -15,6 +15,10 @@ const Header = () => {
     navigate('/');
   };
 
+  const handleProfileClick = () => {
+    navigate('/profile');
+  };
+
   const headerStyle = {
     backgroundColor: '#6495ED',
     height: '100px', // Set the height to 100 pixels
@@ -41,9 +45,9 @@ const Header = () => {
               MESS MEAL BOOKING PORTAL
             </Typography>
           </div>
-          </div>
+        </div>
         <div style={{ marginLeft: 'auto' }}>
-          <IconButton color="inherit">
+          <IconButton color="inherit" onClick={handleProfileClick}>
             <AccountCircleIcon />
           </IconButton>
           <IconButton color="inherit" onClick={handleLogout}>

@@ -25,6 +25,7 @@ const Authentication = () => {
   const handleLogin = () => {
     const data = new FormData();
     data.append('username', formData.username);
+    data.append('rollno', formData.rollno);
     data.append('password', formData.password);
     axios.post(`http://127.0.0.1:8000/authentication/login/`, data)
       .then(response => {
@@ -41,6 +42,7 @@ const Authentication = () => {
   const handleSignUp = () => {
     const data = new FormData();
     data.append('username', formData.username);
+    data.append('rollno', formData.rollno);
     data.append('password', formData.password);
     data.append('email', formData.email);
     data.append('first_name', formData.first_name);
@@ -153,6 +155,15 @@ const Authentication = () => {
                 onChange={handleChange}
               />
               <TextField
+                label="Roll Number"
+                variant="outlined"
+                fullWidth
+                sx={textFieldStyle}
+                name="rollno"
+                value={formData.rollno}
+                onChange={handleChange}
+              />
+              <TextField
                 label="Password"
                 type="password"
                 variant="outlined"
@@ -175,6 +186,15 @@ const Authentication = () => {
                 sx={textFieldStyle}
                 name="username"
                 value={formData.username}
+                onChange={handleChange}
+              />
+              <TextField
+                label="Roll Number"
+                variant="outlined"
+                fullWidth
+                sx={textFieldStyle}
+                name="rollno"
+                value={formData.rollno}
                 onChange={handleChange}
               />
               <TextField

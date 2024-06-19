@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'api.apps.ApiConfig',
     'rest_framework',
     'corsheaders',
+    
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True

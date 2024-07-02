@@ -9,7 +9,8 @@ const Header = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // Perform logout logic if needed
+    // Clear token from localStorage
+    localStorage.removeItem('accessToken');
 
     // Redirect to the authentication page
     navigate('/');

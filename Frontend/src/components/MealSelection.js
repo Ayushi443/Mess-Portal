@@ -2,82 +2,139 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import axios from 'axios';  // Import axios
-import './MealSelection.css'; // Import the CSS file
+import axios from 'axios';
+import './MealSelection.css';
 
 const MealSelection = () => {
-  const [selectedImage, setSelectedImage] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
-  const [meals, setMeals] = useState([]);
+  const [bookings, setBookings] = useState([]);
+  const [markedDates, setMarkedDates] = useState([]);
+  const [hoveredBookings, setHoveredBookings] = useState([]);
+  const [hoveredMess, setHoveredMess] = useState([]);
+  const [showModal, setShowModal] = useState(false); // Initially hide modal
+  const [messOptions, setMessOptions] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/meals/')
-      .then(response => {
-        setMeals(response.data);
-      })
-      .catch(error => {
-        console.error("There was an error fetching the meals!", error);
-      });
+    const fetchBookings = async () => {
+      try {
+        const token = localStorage.getItem('accessToken'); // Assuming the token is stored in localStorage
+        const response = await axios.get('http://127.0.0.1:8000/api/bookings/', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        setBookings(response.data);
+        const markedDates = response.data.map(booking => new Date(booking.date));
+        setMarkedDates(markedDates);
+      } catch (error) {
+        console.error("There was an error fetching the bookings!", error);
+      }
+    };
+    const fetchMessOptions = async () => {
+      try {
+        const token = localStorage.getItem('accessToken');
+        const response = await axios.get('http://127.0.0.1:8000/api/mess-options/', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        setMessOptions(response.data);
+      } catch (error) {
+        console.error("Error fetching mess options:", error);
+      }
+    };
+
+    fetchBookings();
+    fetchMessOptions();
   }, []);
 
   const today = new Date();
-  const dayAfterTomorrow = new Date(today);
-  dayAfterTomorrow.setDate(today.getDate() + 2);
+  const disabledDates = [today, new Date(today.getTime() + 24 * 60 * 60 * 1000)]; // Disable today and tomorrow
 
   const isDateEnabled = (date) => {
-    return date >= dayAfterTomorrow;
+    return !disabledDates.some(disabledDate => date.toDateString() === disabledDate.toDateString());
   };
 
   const handleDateSelect = (date) => {
-    setSelectedDate(date);
-    const formattedDate = date.toISOString().split('T')[0];
-    navigate(`/meal-options/${formattedDate}`);
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+  
+    const formattedDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+    
+    if (isDateMarked(date)) {
+      setHoveredMess([]);
+      const bookingsForDate = bookings.filter(booking => booking.date === formattedDate);
+      setHoveredBookings(bookingsForDate);
+      const messOptionsForDate = bookingsForDate.map(booking => {
+        const messOption = messOptions.find(option => option.id === booking.mess_option);
+        return messOption ? messOption : null;
+      }).filter(Boolean); // Filter out null values
+      
+      setHoveredMess(messOptionsForDate);
+      setShowModal(true); // Show the custom modal when a booked date is selected
+    } else {
+      navigate(`/meal-options/${formattedDate}`);
+    }
+  };
+
+  // Custom function to check if a date is marked (booked)
+  const isDateMarked = (date) => {
+    return markedDates.some(markDate => date.toDateString() === markDate.toDateString());
+  };
+
+  // Function to close the modal and navigate to the selected date's meal options
+  const handleModalClose = () => {
+    setShowModal(false);
   };
 
   return (
-    <div style={{ 
-      backgroundImage: "url('/MESS1.jpg')", 
-      backgroundSize: 'cover', 
-      backgroundRepeat: 'no-repeat', 
-      minHeight: '100vh',
-      padding: '20px',
-      backgroundColor: 'rgba(255, 255, 255, 0.4)' 
-    }}>
-      <h2 style={{ textAlign: 'center', color: 'white', padding: '10px' }}>MEAL SELECTION</h2>
+    <div className="meal-selection-container">
+      <h2 className="meal-selection-title">MEAL SELECTION</h2>
 
-      <div style={{ marginBottom: '30px', textAlign: 'center' }}>
-        <h3 style={{ marginBottom: '10px', color: 'white' }}>Select Date</h3>
-        <DatePicker 
+      <div className="date-picker-container">
+        <h3 className="select-date-title">Select Date</h3>
+        <DatePicker
           selected={selectedDate}
           onChange={handleDateSelect}
           inline
-          minDate={dayAfterTomorrow}
+          minDate={new Date(today.getTime() + 2 * 24 * 60 * 60 * 1000)} // Minimum date two days from now
           filterDate={isDateEnabled}
+          highlightDates={markedDates} // Highlight booked dates
+          dayClassName={(date) => (isDateMarked(date) ? 'booked-date' : null)} // Apply class to booked dates
         />
       </div>
+      {showModal && (
+        <div className="custom-modal">
+          <div className="modal-content">
+            <div style={{display:"flex" , flexDirection:"row-reverse"}}> 
+            <span className="close-icon" onClick={handleModalClose}>×</span>
+            <h4>Bookings for {hoveredBookings[0]?.date}</h4>
+            </div>
 
-      {/* Displaying Meals and selectedImage */}
-      <div style={{ textAlign: 'center', color: 'white' }}>
-        {meals.length > 0 && (
-          <div>
-            <h3>Available Meals</h3>
             <ul>
-              {meals.map((meal, index) => (
-                <li key={index} onClick={() => setSelectedImage(meal.image)}>
-                  {meal.name}
+              {hoveredMess.map((messOption, index) => (
+                <li key={index}>
+                  {messOption.name} - {messOption.address}
                 </li>
               ))}
             </ul>
+            <button onClick={() => {
+              const date = new Date(hoveredBookings[0].date);
+              const year = date.getFullYear();
+              const month = date.getMonth() + 1;
+              const day = date.getDate();
+          
+              const formattedDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+              navigate(`/meal-options/${formattedDate}`);
+              setShowModal(false);
+            }}>
+              Book More Mess
+            </button>
           </div>
-        )}
-        {selectedImage && (
-          <div>
-            <h3>Selected Meal Image</h3>
-            <img src={selectedImage} alt="Selected Meal" style={{ maxWidth: '100%', height: 'auto' }} />
-          </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

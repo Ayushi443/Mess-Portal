@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import { Container, Paper, Typography, TextField, Button, Link } from '@mui/material';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 
-
-
- 
 const Authentication = () => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [isSignUp, setIsSignUp] = useState(false);
   const [formData, setFormData] = useState({
     username: '',
@@ -15,6 +12,7 @@ const Authentication = () => {
     email: '',
     first_name: '',
     last_name: '',
+    rollno: '', // Include rollno in state for signup
   });
 
   const handleChange = (e) => {
@@ -23,14 +21,13 @@ const Authentication = () => {
   };
 
   const handleLogin = () => {
-    const data = new FormData();
-    data.append('username', formData.username);
-    data.append('rollno', formData.rollno);
-    data.append('password', formData.password);
-    axios.post(`http://127.0.0.1:8000/authentication/login/`, data)
+    axios.post('http://127.0.0.1:8000/api/token/', {
+      username: formData.username,
+      password: formData.password,
+    })
       .then(response => {
-        console.log(response.data);
-        // Redirect to meal selection page on successful login
+        localStorage.setItem('accessToken', response.data.access);
+        localStorage.setItem('refreshToken', response.data.refresh);
         navigate('/meal-selection');
       })
       .catch(error => {
@@ -38,19 +35,20 @@ const Authentication = () => {
         // Handle login error
       });
   };
-  
+
   const handleSignUp = () => {
-    const data = new FormData();
-    data.append('username', formData.username);
-    data.append('rollno', formData.rollno);
-    data.append('password', formData.password);
-    data.append('email', formData.email);
-    data.append('first_name', formData.first_name);
-    data.append('last_name', formData.last_name);
-  
-    axios.post(`http://127.0.0.1:8000/authentication/signup/`, data)
+    console.log(formData);
+    axios.post('http://127.0.0.1:8000/authentication/signup/', {
+      username: formData.username,
+      password: formData.password,
+      email: formData.email,
+      first_name: formData.first_name,
+      last_name: formData.last_name,
+      rollno: formData.rollno,
+    })
       .then(response => {
-        console.log(response.data);
+        localStorage.setItem('accessToken', response.data.access);
+        localStorage.setItem('refreshToken', response.data.refresh);
         navigate('/meal-selection');
       })
       .catch(error => {
@@ -63,7 +61,6 @@ const Authentication = () => {
         }
       });
   };
-  
 
   const handleForgotPassword = () => {
     // Your forgot password logic goes here
@@ -186,15 +183,6 @@ const Authentication = () => {
                 sx={textFieldStyle}
                 name="username"
                 value={formData.username}
-                onChange={handleChange}
-              />
-              <TextField
-                label="Roll Number"
-                variant="outlined"
-                fullWidth
-                sx={textFieldStyle}
-                name="rollno"
-                value={formData.rollno}
                 onChange={handleChange}
               />
               <TextField

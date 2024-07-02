@@ -1,6 +1,8 @@
 Django
 djangorestframework
+djangorestframework-simplejwt
 django-cors-headers
+Pillow
 
 Flask==2.0.1
 itsdangerous==2.0.1

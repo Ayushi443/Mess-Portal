@@ -1,92 +1,132 @@
-.react-datepicker {
-    font-size: 1em; /* Increase the font size */
-  }
-  
-  .react-datepicker__header {
-    padding-top: 1em; /* Increase the padding for the header */
-  }
-  
-  .react-datepicker__day,
-  .react-datepicker__day-name {
-    width: 3em; /* Increase the width of the days */
-    line-height: 3em; /* Increase the line height of the days */
-  }
-  
-  .react-datepicker__month {
-    margin: 1.5em; /* Increase the margin of the month view */
-  }
-  .tooltip {
-    position: absolute;
-    background-color: white;
-    border: 1px solid black;
-    border-radius: 5px;
-    padding: 10px;
-    z-index: 1000;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  }
-  .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.75);
-    z-index: 1000;
-  }
-  
-  .modal {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    right: auto;
-    bottom: auto;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    padding: 20px;
-    z-index: 1001;
-    border-radius: 8px;
-    max-width: 500px;
-    width: 100%;
-  }
-  
-  .booked-date {
-    background-color: green !important;
-    color: white !important;
-  }
-  .custom-modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000; /* Ensure modal is above other content */
-  }
-  
-  .custom-modal ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .custom-modal button {
-    margin-top: 10px;
-    padding: 8px 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .custom-modal button:hover {
-    background-color: #0056b3;
-  }
+/* MealSelection.css */
 
-  .close-icon {
-    position: relative;
-    margin: auto;
-    font-size: 40px;
-    cursor: pointer;
-    color: #555;
-  }
+.meal-selection-container {
+  background-image: url('/public/MESS1.jpg'); /* Correct path */
+  background-size: cover; /* Ensure the image covers the whole container */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+  min-height: 100vh; /* Ensure the container covers the full viewport height */
+  padding: 20px; /* Add some padding to the container */
+  color: white; /* Adjust text color for better visibility on the background */
+}
+
+.meal-selection-title {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 20px;
+  font-family: Arial, sans-serif; /* Set font family to Arial */
+  font-weight: bold; /* Set font weight to bold */
+}
+
+.date-picker-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.select-date-title {
+  margin-bottom: 10px;
+  font-size: 1.5em;
+  font-family: Arial, sans-serif; /* Set font family to Arial */
+  font-weight: bold; /* Set font weight to bold */
+}
+
+.react-datepicker {
+  font-size: 1em; /* Increase the font size */
+}
+
+.react-datepicker__header {
+  padding-top: 1em; /* Increase the padding for the header */
+}
+
+.react-datepicker__day,
+.react-datepicker__day-name {
+  width: 3em; /* Increase the width of the days */
+  line-height: 3em; /* Increase the line height of the days */
+}
+
+.react-datepicker__month {
+  margin: 1.5em; /* Increase the margin of the month view */
+}
+
+.tooltip {
+  position: absolute;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  z-index: 1000;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 1000;
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  z-index: 1001;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 100%;
+  color: black; /* Ensure text color contrasts with the modal background */
+}
+
+.booked-date {
+  background-color: green !important;
+  color: white !important;
+}
+
+.custom-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000; /* Ensure modal is above other content */
+  border-radius: 8px;
+  color: black; /* Ensure text color contrasts with the modal background */
+}
+
+.custom-modal ul {
+  list-style: none;
+  padding: 0;
+}
+
+.custom-modal button {
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.custom-modal button:hover {
+  background-color: #0056b3;
+}
+
+.close-icon {
+  position: relative;
+  margin: auto;
+  font-size: 40px;
+  cursor: pointer;
+  color: #555;
+}
